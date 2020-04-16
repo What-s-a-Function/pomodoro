@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Clock from './components/Clock';
+import alerm from '../assets/sound/alarm.mp3';
 
 /**
  * @todo GitHub!!!!!!!!
@@ -17,6 +18,7 @@ const INITIAL_TIME = 60*25;
 export default class App extends Component {
   constructor(props) {
     super(props);
+    this.audio = new Audio(alerm);
 
     this.state = {
       time: INITIAL_TIME,
@@ -26,9 +28,14 @@ export default class App extends Component {
   }
 
   tick = () => {
-    this.setState(prevState => ({
-      time: prevState.time-1,
-    }));
+    if (this.state.time <= 0) {
+      this.audio.play();
+      this.reset();
+    } else {
+      this.setState(prevState => ({
+        time: prevState.time-1,
+      }));
+    }
   }
 
   handleTimer() {
@@ -38,11 +45,16 @@ export default class App extends Component {
         running: true
       });
     } else {
-      clearInterval(this.state.interval);
-      this.setState({
-        running: false
-      });
+      this.clearTimer();
     }
+  }
+
+  clearTimer() {
+    clearInterval(this.state.interval);
+    this.setState({
+      running: false
+    });
+
   }
 
   reset() {
