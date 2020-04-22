@@ -16,7 +16,7 @@ export default class App extends Component {
     super(props);
     this.audio = new Audio(alerm);
     this.initialTime = {
-      work: 60*25,
+      work: 5,
       break: 60*5
     };
 
@@ -41,8 +41,8 @@ export default class App extends Component {
   handleTimer() {
     if (!this.state.running) {
       this.setState({
-        interval: setInterval(()=>this.tick(), 1000),
-        running: true
+        interval: setInterval(() => this.tick(), 1000),
+        running: true,
       });
     } else {
       this.clearTimer();
@@ -73,6 +73,6 @@ export default class App extends Component {
         <button onClick={() => this.handleTimer()}>{this.state.running ? 'STOP' : 'START'}</button>
         <button onClick={() => this.reset()}>RESET</button>
       </div>
-    )
+    );
   }
 }
