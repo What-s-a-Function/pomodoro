@@ -10,8 +10,8 @@ import Alarm from '../alarm.mp3';
  */
 
 // temporary start values for test
-const WORK_TIME = 15;
-const BREAK_TIME = 5;
+const WORK_TIME = 60 * 25;
+const BREAK_TIME = 60 * 5;
 
 export default class App extends Component {
   constructor(props) {
@@ -42,7 +42,7 @@ export default class App extends Component {
     });
   };
 
-  // change the period
+  // change the period work break
   workBreak = () => {
     if (this.state.isWork) {
       alert('Continue to break');
