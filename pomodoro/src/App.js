@@ -4,6 +4,7 @@ import alerm from '../assets/sound/alarm.mp3';
 
 /**
  * @todo Breaks part
+ * @todo Simplify methods (setWork and setBreak)?
  * @todo Styles
  * @todo Custom times?
  * @todo Mobile App?
@@ -22,51 +23,19 @@ export default class App extends Component {
     this.state = {
       time: this.initialTime.work,
       interval: null,
-      running: false,
-      isWork: true
+      running: false
     };
   }
 
   tick = () => {
     if (this.state.time <= 0) {
-      this.handleEnd();
+      this.audio.play();
+      this.reset();
     } else {
       this.setState(prevState => ({
         time: prevState.time-1,
       }));
     }
-  }
-
-  handleEnd() {
-    this.audio.play();
-
-    this.setState(prevState => ({
-      isWork: !prevState.isWork
-    }));
-
-    this.reset();
-  }
-
-  setWork() {
-    if (this.state.interval) {
-      clearInterval(this.state.interval);
-    }
-    this.setState({
-      running: false,
-      isWork: true,
-      time: this.initialTime.work
-    });
-  }
-
-  setBreak() {
-    if (this.state.interval) {
-      clearInterval(this.state.interval);
-    }
-    this.setState({
-      running: false,
-      isWork: false,
-      time: this.initialTime.break
-    });
   }
 
   handleTimer() {
@@ -91,7 +60,6 @@ export default class App extends Component {
     if (this.state.interval) {
       clearInterval(this.state.interval);
     }
-
     this.setState({
       running: false,
       time: this.initialTime.work
@@ -101,7 +69,6 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <h1>WORK!</h1>
         <Clock time={ this.state.time }/>
         <button onClick={() => this.handleTimer()}>{this.state.running ? 'STOP' : 'START'}</button>
         <button onClick={() => this.reset()}>RESET</button>
