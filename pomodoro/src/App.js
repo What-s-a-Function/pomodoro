@@ -12,7 +12,7 @@ import Clock from './components/Clock';
  * @todo DEPLOY
  */
 
-const INITIAL_TIME = 60*25;
+const INITIAL_TIME = 60 * 25;
 
 export default class App extends Component {
   constructor(props) {
@@ -21,26 +21,26 @@ export default class App extends Component {
     this.state = {
       time: INITIAL_TIME,
       interval: null,
-      running: false
+      running: false,
     };
   }
 
   tick = () => {
-    this.setState(prevState => ({
-      time: prevState.time-1,
+    this.setState((prevState) => ({
+      time: prevState.time - 1,
     }));
-  }
+  };
 
   handleTimer() {
     if (!this.state.running) {
       this.setState({
-        interval: setInterval(()=>this.tick(), 1000),
-        running: true
+        interval: setInterval(() => this.tick(), 1000),
+        running: true,
       });
     } else {
       clearInterval(this.state.interval);
       this.setState({
-        running: false
+        running: false,
       });
     }
   }
@@ -51,18 +51,19 @@ export default class App extends Component {
     }
     this.setState({
       running: false,
-      time: INITIAL_TIME
+      time: INITIAL_TIME,
     });
-
   }
 
   render() {
     return (
       <div>
-        <Clock time={ this.state.time }/>
-        <button onClick={() => this.handleTimer()}>{this.state.running ? 'STOP' : 'START'}</button>
+        <Clock time={this.state.time} />
+        <button onClick={() => this.handleTimer()}>
+          {this.state.running ? 'STOP' : 'START'}
+        </button>
         <button onClick={() => this.reset()}>RESET</button>
       </div>
-    )
+    );
   }
 }
